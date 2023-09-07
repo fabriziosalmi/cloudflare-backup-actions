@@ -1,0 +1,39 @@
+name: Records
+
+on:
+  workflow_run:
+    workflows: ["Zones"]
+    types:
+      - completed
+  
+jobs:
+  fetch_records:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Fetch records for each zone
+      run: |
+        while IFS= read -r zone; do
+          zone_cleaned=$(echo "$zone" | tr -d '"')
+          zone_id=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=${zone_cleaned}" \
+                      -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                      -H "Content-Type: application/json" | jq -r '.result[0].id')
+          
+          curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${zone_id}/dns_records" \
+               -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+               -H "Content-Type: application/json" > "${zone_cleaned}.json"
+        done < zones.json
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+    - name: Commit and push if there are updates
+      run: |
+        git config user.name "GitHub Action"
+        git config user.email "github-action@github.com"
+        git add -A
+        timestamp=$(date -u)
+        git commit -m "Updated zone records on ${timestamp}" || exit 0
+        git push
