@@ -17,7 +17,7 @@ Cloudflare scheduled backup of all zones and records via Github Actions
 > Go to https://github.com/user/repo/settings and change repository visibility to private. If you miss this mandatory step you will make your own Cloudflare zones and records informations public and I'm not responsible for that. If you encounter this case just delete the forked repo as soon as possible.
 
 3. Enable GitHub Actions if disabled
-4. Create a token on [Cloudflare dashboard](https://dash.cloudflare.com/profile/api-tokens) with read all resources permissions (quick way) or specific zones permissions
+4. Create a token on [Cloudflare dashboard](https://dash.cloudflare.com/profile/api-tokens) with "read all resources permissions" (quick way) or create a custom token for a single or more zones you want to backup
 5. Setup `CLOUDFLARE_API_TOKEN` as GitHub Action repository secret (https://github.com/user/repo/settings/secrets/actions)
 6. Setup scheduled cronjob on the zones.yml action like this bu uncommenting it:
 
