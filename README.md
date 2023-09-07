@@ -29,4 +29,4 @@ on:
 ```
 
 6. Records backup will be executed only after a successful zones backup
-7. Enjoy automated backups via GitHub Actions ^_^
+7. Enjoy automated backups via GitHub Actions 🎉
