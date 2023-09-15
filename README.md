@@ -1,4 +1,4 @@
-# Cloudflare backup via GitHub Actions
+# Cloudflare json backup via GitHub Actions
 Simple scheduled backup of all Cloudflare zones and records via Github Actions.
 
 [![Zones](https://github.com/fabriziosalmi/cloudflare/actions/workflows/zones.yml/badge.svg)](https://github.com/fabriziosalmi/cloudflare/actions/workflows/zones.yml) [![Records](https://github.com/fabriziosalmi/cloudflare/actions/workflows/records.yml/badge.svg)](https://github.com/fabriziosalmi/cloudflare/actions/workflows/records.yml) 
